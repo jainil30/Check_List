@@ -1,22 +1,26 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_native_contact_picker/flutter_native_contact_picker.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:master_list/controllers/category_controller.dart';
 import 'package:master_list/controllers/drawer_controller.dart';
 import 'package:master_list/controllers/item_controller.dart';
 import 'package:master_list/controllers/quantity_controller.dart';
+import 'package:master_list/models/ItemModel.dart';
 import 'package:master_list/widgets/drawer_widget.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import '../common/functions.dart';
+import '../constants/string_constants.dart';
 import '../widgets/custom_item_list_tile_widget.dart';
 
 class ItemListScreen extends StatelessWidget {
-  const ItemListScreen({super.key});
-
+  ItemListScreen({super.key});
+  final _flutterContactPicker = FlutterContactPicker();
   @override
   Widget build(BuildContext context) {
     var itemController = Get.put(ItemController());
@@ -28,6 +32,35 @@ class ItemListScreen extends StatelessWidget {
         centerTitle: true,
         title: Text("Items"),
         backgroundColor: Theme.of(context).primaryColorLight,
+        actions: [
+          if (itemController.items.isNotEmpty)
+            IconButton(
+                onPressed: () async {
+                  Contact? contact =
+                      await _flutterContactPicker.selectContact();
+                  print(contact!.phoneNumbers);
+
+                  String list = "***List Of Requirements ***\n";
+                  for (ItemModel item in itemController.items) {
+                    list += "______________________\n";
+                    list += "Name : ${item.itemName}\n";
+                    list += "Category : ${item.itemCategoryName} \n";
+                    list +=
+                        "Quantity : ${item.itemQuantityAmount} ${item.itemQuantity} \n";
+                    list += "Place : ${item.itemPurchasePlace} \n";
+                  }
+                  list += "*************************";
+
+                  final link = WhatsAppUnilink(
+                    phoneNumber: contact.phoneNumbers![0],
+                    text: list,
+                  );
+                  // Convert the WhatsAppUnilink instance to a Uri.
+                  // The "launch" method is part of "url_launcher".
+                  await launchUrlString(link.toString());
+                },
+                icon: const Icon(Icons.share))
+        ],
       ),
       drawer: DrawerWidget(),
       body: Container(
@@ -48,6 +81,8 @@ class ItemListScreen extends StatelessWidget {
                             backgroundColor: Colors.lightBlue,
                             onPressed: (context) {
                               itemController.isEditMode.value = true;
+                              itemController.editIndex.value = index;
+
                               itemController.itemNameController.text =
                                   itemController.items[index].itemName
                                       .toString();
@@ -107,7 +142,11 @@ class ItemListScreen extends StatelessWidget {
                   },
                   itemCount: itemController.items.length,
                 )
-              : Text("No Items Availabel"),
+              : Center(
+                  child: const Text(
+                  EMPTY_LIST_NOTE,
+                  textAlign: TextAlign.center,
+                )),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -140,11 +179,12 @@ class ItemListScreen extends StatelessWidget {
               bounds: Rect.fromLTWH(0, 0, page.getClientSize().width,
                   page.getClientSize().height));
 
-          var directory = await getApplicationDocumentsDirectory();
-          File("${directory.path}/master_list.pdf")
-              .writeAsBytes(await document.save());
+          // var directory = await getApplicationDocumentsDirectory();
+          // File("${directory.path}/master_list.pdf")
+          //     .writeAsBytes(await document.save());
+          File("/Download/master_list.pdf").writeAsBytes(await document.save());
 
-          print(directory.path);
+          // print(directory.path);
           print("Doc Info : ${document.documentInformation.isBlank}");
           document.dispose();
         },

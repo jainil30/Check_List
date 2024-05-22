@@ -14,6 +14,7 @@ class ItemController extends GetxController {
   var itemPurchasePlaceController = TextEditingController();
 
   var editIndex = 0.obs;
+
   ItemController() {
     hiveService = HiveServices();
     fetchAllItems();
@@ -26,6 +27,13 @@ class ItemController extends GetxController {
         itemQuantity: itemQuantityController.text,
         itemQuantityAmount: double.parse(itemQuantityAmountController.text),
         itemPurchasePlace: itemPurchasePlaceController.text));
+
+    itemNameController.text = "";
+    itemQuantityController.text = "";
+    itemQuantityAmountController.text = "";
+    itemCategoryNameController.text = "";
+    itemPurchasePlaceController.text = "";
+
     fetchAllItems();
   }
 
@@ -48,6 +56,11 @@ class ItemController extends GetxController {
             itemQuantityAmount: double.parse(itemQuantityAmountController.text),
             itemPurchasePlace: itemPurchasePlaceController.text));
 
+    itemNameController.text = "";
+    itemQuantityController.text = "";
+    itemQuantityAmountController.text = "";
+    itemCategoryNameController.text = "";
+    itemPurchasePlaceController.text = "";
     fetchAllItems();
     isEditMode.value = false;
   }
