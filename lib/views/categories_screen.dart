@@ -66,6 +66,7 @@ class CategoryScreen extends StatelessWidget {
                   () => (categoryController.categories.length != 0)
                       ? ListView.builder(
                           primary: true,
+                          // physics: BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
                             return CustomListTileWidget(
                               index: index,

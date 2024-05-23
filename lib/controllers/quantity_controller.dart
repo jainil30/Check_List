@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:master_list/common/lists.dart';
 import 'package:master_list/models/QuantityModel.dart';
 import 'package:master_list/services/hive_services.dart';
 
@@ -13,10 +14,26 @@ class QuantityController extends GetxController {
   QuantityController() {
     hiveService = HiveServices();
     fetchAllquantities();
+    if (quantities.isEmpty) {
+      for (var quantity in quantityList) {
+        hiveService
+            .addQuantity(QuantityModel(quantityName: quantity["quantityName"]));
+      }
+    }
+    fetchAllquantities();
   }
 
   void addQuantity(QuantityModel newQuantity) {
-    hiveService.addQuantity(newQuantity);
+    if (quantities
+        .where((element) => element.quantityName == newQuantity.quantityName)
+        .isEmpty) {
+      hiveService.addQuantity(newQuantity);
+    } else {
+      Get.snackbar(
+          "${newQuantity.quantityName} is already present in Quantities",
+          "Try adding some other quantity",
+          icon: Icon(Icons.discount));
+    }
     fetchAllquantities();
   }
 

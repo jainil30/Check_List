@@ -22,7 +22,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: textInputType,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        // autovalidateMode: AutovalidateMode.always,
         decoration: InputDecoration(
             hintText: hintText,
             labelText: labelText,
@@ -31,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
                 borderSide: BorderSide(color: color!, width: 2))),
         validator: (value) {
           if (value!.isEmpty) {
-            return "Field is mandatory";
+            return "${hintText} is mandatory";
           }
 
           if (textInputType == TextInputType.emailAddress) {
