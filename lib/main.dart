@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var drawerController = Get.put(DrawerIndexController());
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Check List',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
