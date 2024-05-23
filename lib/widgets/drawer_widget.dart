@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:master_list/common/functions.dart';
 import 'package:master_list/common/lists.dart';
+import 'package:master_list/controllers/category_controller.dart';
 import 'package:master_list/controllers/drawer_controller.dart';
+import 'package:master_list/controllers/quantity_controller.dart';
 
 class DrawerWidget extends StatelessWidget {
   DrawerWidget({super.key});
 
   var drawerController = Get.put(DrawerIndexController());
+  var categoryController = Get.put(CategoryController());
+  var quantityController = Get.put(QuantityController());
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -32,7 +36,10 @@ class DrawerWidget extends StatelessWidget {
                     },
                   );
                 },
-                itemCount: drawerItems.length),
+                itemCount: (categoryController.categories.isNotEmpty &&
+                        quantityController.quantities.isNotEmpty)
+                    ? drawerItems.length
+                    : drawerItems.length - 1),
           )
         ],
       ),

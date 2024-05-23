@@ -10,6 +10,7 @@ class HiveServices {
   final itemBox = Boxes.getItemBox();
 
   void addCategory(CategoryModel category) {
+    print("Added CateGory :  ${category.categoryName}");
     categoryBox.add(category);
   }
 
@@ -28,6 +29,7 @@ class HiveServices {
 
 //Quantity Services
   void addQuantity(QuantityModel quantity) {
+    print("Added Quantity :  ${quantity.quantityName}");
     quantityBox.add(quantity);
   }
 
@@ -54,6 +56,7 @@ class HiveServices {
   }
 
   void editItem(int index, ItemModel item) {
+    print("Edit Index: ${index}");
     itemBox.putAt(index, item);
   }
 

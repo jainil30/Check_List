@@ -22,3 +22,32 @@ var drawerItems = [
   },
   {"title": "Add Items", "icon": Icon(Icons.add), "screen": AddItemScreen()},
 ];
+
+var categoryList = [
+  {"categoryName": "Cleaning Supplies"},
+  {"categoryName": "Bathroom"},
+  {"categoryName": "Kitchen"},
+  {"categoryName": "Pantry"},
+  {"categoryName": "Bedroom"},
+  {"categoryName": "Living Room"},
+  {"categoryName": "Pet Supplies"},
+  {"categoryName": "Garage"},
+  {"categoryName": "Office Supplies"},
+  {"categoryName": "Breakroom"},
+  {"categoryName": "First Aid"},
+  {"categoryName": "Technology"},
+  {"categoryName": "Gifts"},
+  {"categoryName": "DIY Projects"},
+  {"categoryName": "Seasonal"},
+  {"categoryName": "Other"},
+];
+
+var quantityList = [
+  {"quantityName": "Kilogram"},
+  {"quantityName": "Gram"},
+  {"quantityName": "Litre"},
+  {"quantityName": "Mililitre"},
+  {"quantityName": "Pack"},
+  {"quantityName": "Carton (24 Piece)"},
+  {"quantityName": "Dozen (12 Piece)"},
+];

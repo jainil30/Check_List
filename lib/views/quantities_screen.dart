@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:master_list/widgets/custom_quantity_list_item.dart';
+import 'package:master_list/widgets/text_form_field.dart';
 
 import '../common/functions.dart';
 import '../controllers/quantity_controller.dart';
@@ -27,17 +28,15 @@ class QuantityScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Form(
-                key: _formKey,
-                child: TextFormField(
-                  controller: quantityController.quantityTextEditingController,
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value == "") {
-                      return "Quantity name is mandatory";
-                    }
-                  },
-                ),
-              ),
+                  key: _formKey,
+                  child: CustomTextFormField(
+                    controller:
+                        quantityController.quantityTextEditingController,
+                    hintText: "Quantity Name",
+                    textInputType: TextInputType.text,
+                    labelText: "Quantity Name",
+                    color: Colors.blueAccent,
+                  )),
               Obx(
                 () => ElevatedButton(
                     style: ElevatedButton.styleFrom(
