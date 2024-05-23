@@ -45,7 +45,7 @@ class ItemListScreen extends StatelessWidget {
                         await _flutterContactPicker.selectContact();
                     print(contact!.phoneNumbers);
 
-                    String list = "***List Of Requirements ***\n";
+                    String list = "--- *List Of Requirements* ---\n";
                     for (ItemModel item in itemController.items) {
                       list += "______________________\n";
                       list += "Name : ${item.itemName}\n";
@@ -54,7 +54,7 @@ class ItemListScreen extends StatelessWidget {
                           "Quantity : ${item.itemQuantityAmount} ${item.itemQuantity} \n";
                       list += "Place : ${item.itemPurchasePlace} \n";
                     }
-                    list += "*************************";
+                    list += "------------------------------------";
 
                     final link = WhatsAppUnilink(
                       phoneNumber: contact.phoneNumbers![0],
@@ -69,7 +69,17 @@ class ItemListScreen extends StatelessWidget {
         ),
         drawer: DrawerWidget(),
         body: Container(
-          margin: EdgeInsets.all(16),
+          // decoration: BoxDecoration(
+          //     gradient: LinearGradient(
+          //         begin: AlignmentDirectional.topStart,
+          //         end: AlignmentDirectional.bottomEnd,
+          //         colors: [
+          //       Colors.deepOrange,
+          //       Colors.deepOrangeAccent,
+          //       Colors.orange,
+          //       Colors.orangeAccent
+          //     ])),
+          padding: EdgeInsets.all(16),
           height: getHeight(0.9, context),
           width: double.infinity,
           child: Obx(
@@ -82,8 +92,9 @@ class ItemListScreen extends StatelessWidget {
                           motion: ScrollMotion(),
                           children: [
                             SlidableAction(
+                              spacing: 10,
                               icon: Icons.edit,
-                              backgroundColor: Colors.lightBlue,
+                              backgroundColor: Colors.blueAccent,
                               onPressed: (context) {
                                 itemController.isEditMode.value = true;
                                 itemController.editIndex.value = index;

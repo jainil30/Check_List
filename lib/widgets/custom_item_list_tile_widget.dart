@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:master_list/controllers/item_controller.dart';
 
 class CustomItemListTileWidget extends StatelessWidget {
   CustomItemListTileWidget(
@@ -21,8 +19,8 @@ class CustomItemListTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var itemController = Get.put(ItemController());
     return Card(
+      elevation: 2,
       child: ListTile(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
